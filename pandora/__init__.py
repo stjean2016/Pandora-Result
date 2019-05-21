@@ -49,7 +49,7 @@ def create_app():
         import hashlib
         import json
 
-        url = flask.request.b64_url
+        url = flask.request.args.get("b64_url")
         #url_data = json.loads(str(flask.request.query_string,encoding='utf8'))
         try:
             with open(url) as f:
