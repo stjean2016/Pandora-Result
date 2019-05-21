@@ -112,7 +112,7 @@ def create_app():
                     temp_dict["city"] = line_data[0]
                     temp_dict["company"] = line_data[1]
                     temp_dict["exposure_time"] = line_data[2]
-                    temp_dict["cidescriptionty"] = line_data[3]
+                    temp_dict["description"] = line_data[3]
                     res_list.append(temp_dict)
                     
         data = json.dumps(res_list).encode('utf8')
