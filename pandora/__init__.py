@@ -48,7 +48,9 @@ def create_app():
         import base64
         import hashlib
         import json
-        url = str(flask.request.query_string,encoding='utf8')
+
+        url = flask.request.b64_url
+        #url_data = json.loads(str(flask.request.query_string,encoding='utf8'))
         try:
             with open(url) as f:
                 data = f.read()
