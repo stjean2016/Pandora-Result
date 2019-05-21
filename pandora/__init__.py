@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import flask
 
 
@@ -45,12 +46,15 @@ def create_app():
         from PIL import Image
         import requests
         import base64
+        import hashlib
+        import json
         url = str(flask.request.query_string,encoding='utf8')
         try:
             with open(url) as f:
                 data = f.read()
-        except:
-            pass
+        except :
+            res = requests.get(url)
+            data = res.text
         data = base64.b64decode(data)
         with open("temp.png","wb") as f:
             f.write(data)
@@ -59,8 +63,21 @@ def create_app():
         
         img = img.resize((100, 100),Image.ANTIALIAS)
 
-        img.show()
-        return url
+        img.save("temp.png")
+        
+        with open("temp.png","rb") as f:
+            data = f.read()
+
+        md5_png = hashlib.md5(data).hexdigest()
+        
+        
+        
+        bs64_png = str(base64.b64encode(data),encoding='utf8')
+        
+
+        result_data = {"md5":md5_png,"base64_picture":bs64_png}
+        
+        return json.dumps(result_data)
 
     @app.route('/bs64png', methods=['GET'])
     def picture_get():
