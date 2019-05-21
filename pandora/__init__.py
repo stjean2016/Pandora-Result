@@ -98,7 +98,23 @@ def create_app():
             "description": <description 描述>
         }, ...]
         """
-        pass
+        import json
+        res_list = []
+        with open("data.txt",encoding='utf16') as f:
+            for x in f.readlines():
+                if x[0]=='\t':
+                    continue
+                else:
+                    line_data = x.strip().split('\t')
+                    temp_dict = {}
+                    temp_dict["city"] = line_data[0]
+                    temp_dict["company"] = line_data[1]
+                    temp_dict["exposure_time"] = line_data[2]
+                    temp_dict["cidescriptionty"] = line_data[3]
+                    res_list.append(temp_dict)
+                    
+                    
+        return json.dumps(res_list)
 
     return app
 
