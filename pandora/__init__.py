@@ -100,7 +100,7 @@ def create_app():
         """
         import json
         res_list = []
-        with open("data.txt",encoding='utf16') as f:
+        with open("data.txt",encoding='utf8') as f:
             for x in f.readlines():
                 if x[0]=='\t':
                     continue
@@ -113,8 +113,8 @@ def create_app():
                     temp_dict["cidescriptionty"] = line_data[3]
                     res_list.append(temp_dict)
                     
-                    
-        return json.dumps(res_list)
+        data = json.dumps(res_list).encode('utf8')
+        return data
 
     return app
 
