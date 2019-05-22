@@ -4,7 +4,7 @@ import flask
 
 def create_app():
     app = flask.Flask(__name__)
-
+    app.config['JSON_AS_ASCII'] = False
     @app.route('/')
     def index():
         """
@@ -81,7 +81,7 @@ def create_app():
 
         result_data = {"md5":md5_png,"base64_picture":bs64_png}
         
-        return json.dumps(result_data)
+        return flask.jsonify(result_data)
 
     @app.route('/bs64png', methods=['GET'])
     def picture_get():
@@ -116,7 +116,7 @@ def create_app():
                     temp_dict["exposure_time"] = line_data[2]
                     temp_dict["description"] = line_data[3]
                     res_list.append(temp_dict)
-                    
+        flask.jsonify()
         data = json.dumps(res_list)
         return data
 
