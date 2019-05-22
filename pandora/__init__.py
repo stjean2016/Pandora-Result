@@ -52,7 +52,7 @@ def create_app():
         url = flask.request.args.get("b64_url")
         #url_data = json.loads(str(flask.request.query_string,encoding='utf8'))
         try:
-            with open(url) as f:
+            with open("pandora/"+url) as f:
                 data = f.read()
         except :
             res = requests.get(url)
@@ -72,8 +72,6 @@ def create_app():
             data = f.read()
 
         md5_png = hashlib.md5(data).hexdigest()
-        print (type(md5_png))
-        
         
         bs64_png = str(base64.b64encode(data),encoding='utf8')
         with open("temp.txt","w") as f:
@@ -114,8 +112,9 @@ def create_app():
                     temp_dict["city"] = line_data[0]
                     temp_dict["company"] = line_data[1]
                     temp_dict["exposure_time"] = line_data[2]
-                    temp_dict["description"] = line_data[3]
+                    temp_dict["description"] = line_data[3].replace('"',"")
                     res_list.append(temp_dict)
+        
         data = flask.jsonify(res_list)
         return data
 
