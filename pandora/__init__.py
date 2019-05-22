@@ -116,8 +116,7 @@ def create_app():
                     temp_dict["exposure_time"] = line_data[2]
                     temp_dict["description"] = line_data[3]
                     res_list.append(temp_dict)
-        flask.jsonify()
-        data = json.dumps(res_list)
+        data = flask.jsonify(res_list)
         return data
 
     return app
