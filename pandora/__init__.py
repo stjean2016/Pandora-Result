@@ -57,6 +57,7 @@ def create_app():
         except :
             res = requests.get(url)
             data = res.text
+        
         data = base64.b64decode(data)
         with open("temp.png","wb") as f:
             f.write(data)
@@ -71,11 +72,12 @@ def create_app():
             data = f.read()
 
         md5_png = hashlib.md5(data).hexdigest()
-        
+        print (type(md5_png))
         
         
         bs64_png = str(base64.b64encode(data),encoding='utf8')
-        
+        with open("temp.txt","w") as f:
+            f.write(bs64_png)
 
         result_data = {"md5":md5_png,"base64_picture":bs64_png}
         
@@ -115,7 +117,7 @@ def create_app():
                     temp_dict["description"] = line_data[3]
                     res_list.append(temp_dict)
                     
-        data = json.dumps(res_list).encode('utf8')
+        data = json.dumps(res_list)
         return data
 
     return app
